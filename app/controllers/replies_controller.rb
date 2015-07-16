@@ -3,7 +3,9 @@ class RepliesController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def create
+    @micropost = current_user.microposts.find(params[:micropost_id])
     @reply = @micropost.replies.build(reply_params)
+    @reply.user = current_user
     if @reply.save
       flash[:success] = "Reply created!"
       redirect_to root_url
@@ -25,7 +27,7 @@ class RepliesController < ApplicationController
   end
 
   def correct_user
-    @reply = current_user.replies.find_by(id: params[:id])
+    @reply = current_user.replies.find(params[:id])
     redirect_to root_url if @reply.nil?
   end
 end

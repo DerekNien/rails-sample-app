@@ -31,9 +31,8 @@ Rails.application.routes.draw do
   end
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
-  resources :microposts, only: [:create, :destroy] do
-    resources :replies, only: [:create, :destroy]
-  end
+  resources :microposts, only: [:create, :destroy]
+  resources :replies, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
 
   # Example resource route with options:
