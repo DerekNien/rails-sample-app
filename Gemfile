@@ -10,7 +10,7 @@ gem 'will_paginate', '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'carrierwave', '0.10.0'
 gem 'mini_magick', '3.8.0'
-gem 'fog', '1.23.0'
+gem 'fog', '1.30.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '5.0.2'
 # Use Uglifier as compressor for JavaScript assets

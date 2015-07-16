@@ -2,20 +2,48 @@
 <html>
 <head>
   <title><%= full_title(yield(:title)) %></title>
+
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <!--<scirpt>-->
+
   <%= render 'layouts/shim' %>
+
+  <script type="text/javascript">
+      setTimeout(function () {
+          $(".alert_messages").animate({height: "toggle", opacity: "toggle"}, 1000);
+      }, 3000);
+  </script>
+  <style>
+      .container {
+          position: relative;
+      }
+
+      .alert_messages {
+          position: absolute;
+          width: 40%;
+          right: 0px;
+          z-index: 1;
+          opacity: 0.875;
+          text-align: center;
+      }
+  </style>
 </head>
 <body>
 <%= render 'layouts/header' %>
 <div class="container">
   <% flash.each do |message_type, message| %>
-      <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <div class="alert_messages">
+        <!--<a href="#" class="close" data-dismiss="alert">&times;</a>-->
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      </div>
   <% end %>
+
   <%= yield %>
+
   <%= render 'layouts/footer' %>
-  <%= debug(params) if Rails.env.development? %>
+  <!--<%= debug(params) if Rails.env.development? %>-->
 </div>
 </body>
 </html>

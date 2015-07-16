@@ -1,15 +1,32 @@
 <%= form_for(@micropost, html: { multipart: true }) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
-      <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+      <%= f.text_area :content, placeholder: "Input your question.", id: "post_textarea"  %>
     </div>
     <%= f.submit "Post", class: "btn btn-primary" %>
-    <span class="picture">
-        <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-    </span>
+    <div>
+        <p>image upload:</p>
+        <span class="picture">
+            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+        </span>
+    </div>
 <% end %>
 
 <script type="text/javascript">
+    var ready = function() {
+        tinymce.init({
+            selector: "#post_textarea",
+            menubar: false,
+            statusbar: false,
+            plugins: "textcolor image media emoticons link",
+            toolbar: " bold italic underline | forecolor | link image | media | emoticons"
+        });
+    };
+
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+
+
     $('#micropost_picture').bind('change', function() {
         var size_in_megabytes = this.files[0].size/1024/1024;
         if (size_in_megabytes > 5) {
