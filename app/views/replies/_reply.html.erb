@@ -6,8 +6,8 @@
   </span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(reply.created_at) %> ago.
-  </span>
-  <% if current_user?(reply.user) %>
+    <% if current_user?(reply.user) %>
       <%= link_to "delete", reply, method: :delete, data: { confirm: "You sure?" } %>
-  <% end %>
+    <% end %>
+  </span>
 </li>

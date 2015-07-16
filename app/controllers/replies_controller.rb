@@ -3,7 +3,7 @@ class RepliesController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def create
-    @micropost = current_user.microposts.find(params[:micropost_id])
+    @micropost = Micropost.find(params[:micropost_id])
     @reply = @micropost.replies.build(reply_params)
     @reply.user = current_user
     if @reply.save
