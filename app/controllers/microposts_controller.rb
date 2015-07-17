@@ -13,6 +13,16 @@ class MicropostsController < ApplicationController
     end
   end
 
+  def like
+    @micropost = Micropost.find(params[:id])
+    @micropost.upvote += 1
+    if @micropost.save
+      redirect_to root_url
+    else
+      render 'static_pages/home'
+    end
+  end
+
   def destroy
     @micropost.destroy
     flash[:success] = "Micropost deleted"

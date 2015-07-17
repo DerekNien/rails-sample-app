@@ -6,6 +6,11 @@
     <%= image_tag micropost.picture.url if micropost.picture? %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+    <% if micropost.upvote == 0 %>
+      <%= link_to "like", like_micropost_path(micropost.id) %>
+    <% else %>
+      liked,
+    <% end %>
     <% if current_user?(micropost.user) %>
       <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
     <% end %>
@@ -14,13 +19,13 @@
     <%= render micropost.replies %>
   </ol>
   <section class="reply_form">
-      <%= form_for micropost.replies.build do |f| %>
-          <%= hidden_field_tag :micropost_id, micropost.id %>
-          <%= render 'shared/error_messages', object: f.object %>
-          <div class="field">
-            <%= f.text_area :content, placeholder: "Leaving a reply..." %>
-          </div>
-          <%= f.submit "Reply", class: "btn btn-primary" %>
-      <% end %>
+    <%= form_for micropost.replies.build do |f| %>
+      <%= hidden_field_tag :micropost_id, micropost.id %>
+      <%= render 'shared/error_messages', object: f.object %>
+        <div class="field">
+          <%= f.text_area :content, placeholder: "Leaving a reply..." %>
+        </div>
+      <%= f.submit "Reply", class: "btn btn-primary" %>
+    <% end %>
   </section>
 </li>
