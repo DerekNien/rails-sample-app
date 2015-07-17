@@ -6,13 +6,19 @@
     <%= image_tag micropost.picture.url if micropost.picture? %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-    <% if micropost.upvote == 0 %>
-      <%= link_to "like", like_micropost_path(micropost.id) %>
+    <% if votable?(micropost.id) %>
+      <%= link_to "upvote", upvote_micropost_path(micropost.id) %>,
+      <%= link_to "downvote", downvote_micropost_path(micropost.id) %>,
     <% else %>
-      liked,
+      voted,
     <% end %>
     <% if current_user?(micropost.user) %>
-      <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
+      <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>.
+    <% end %>
+    <% if micropost.upvote >= micropost.downvote %>
+      Vote: <%= micropost.upvote - micropost.downvote %>.
+    <% else %>
+      Vote: -<%= micropost.downvote - micropost.upvote %>.
     <% end %>
   </span>
   <ol class="replies">
